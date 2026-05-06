@@ -6,3 +6,4 @@ admin.site.register(Post, PostAdmin)
 
 class PostAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
+    list_display = ('slug', 'published_at')
