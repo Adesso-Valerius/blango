@@ -2,9 +2,11 @@
 {% load blog_extras %}
 {% block content %}
 <h2>{{ post.title }}</h2>
+
 {% row %}
     <div class="col">
         {% include "blog/post-byline.html" %}
+        {% include "blog/post-comments.html" %}
     </div>
 {% endrow %}
 {% row %}
@@ -12,6 +14,12 @@
         {{ post.content|safe }}
     </div>
 {% endrow %}
+
+<!-- TEST -->
+<form method="post">
+    {{ comment_form.as_p }}
+</form>
+
 {% row %}
     {% col %}
         {% recent_posts post %}
