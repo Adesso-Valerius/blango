@@ -19,7 +19,7 @@ from configurations import values
 class Dev(Configuration):
     # Build paths inside the project like this: BASE_DIR / 'subdir'.
     BASE_DIR = Path(__file__).resolve().parent.parent
-    
+
     LOGGING = {
         "version": 1,
         "disable_existing_loggers": False,
@@ -89,11 +89,12 @@ class Dev(Configuration):
         "django.contrib.sessions",
         "django.contrib.messages",
         "django.contrib.staticfiles",
-        'django.contrib.admin',
+        "django.contrib.admin",
         "blog",
         "crispy_forms", 
         "crispy_bootstrap5",
         "debug_toolbar",
+        "blango_auth",
     ]
 
     MIDDLEWARE = [
@@ -182,6 +183,7 @@ class Dev(Configuration):
     DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
     CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
     CRISPY_TEMPLATE_PACK = "bootstrap5"
+    AUTH_USER_MODEL = "blango_auth.User"
 
 class Prod(Dev):
     DEBUG = False
