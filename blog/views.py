@@ -7,10 +7,21 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+from django.conf import settings
+print("DEBUG:", settings.DEBUG)
+print("INTERNAL_IPS:", settings.INTERNAL_IPS)
+
+def test(request):
+    return HttpResponse(request.META["REMOTE_ADDR"])
+
 def index(request):
-    posts = Post.objects.filter(published_at__lte=timezone.now())
+    posts = Post.objects.filter(published_at__lte=timezone.now()).select_related("author")
     logger.debug("Got %d posts", len(posts))
     return render(request, "blog/index.html", {"posts": posts})
+
+def get_ip(request):
+  from django.http import HttpResponse
+  return HttpResponse(request.META['REMOTE_ADDR'])
 
 def post_detail(request, slug):
     post = Post.objects.get(slug=slug)

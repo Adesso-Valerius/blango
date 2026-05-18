@@ -67,6 +67,9 @@ class Dev(Configuration):
 
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True
+    DEBUG_TOOLBAR_CONFIG = {
+    "SHOW_TOOLBAR_CALLBACK": lambda request: True,
+    }
 
     ALLOWED_HOSTS = ['*']
     X_FRAME_OPTIONS = 'ALLOW-FROM ' + os.environ.get('CODIO_HOSTNAME') + '-8000.codio.io'
@@ -90,16 +93,19 @@ class Dev(Configuration):
         "blog",
         "crispy_forms", 
         "crispy_bootstrap5",
+        "debug_toolbar",
     ]
 
     MIDDLEWARE = [
         'django.middleware.security.SecurityMiddleware',
+
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
         'django.contrib.sessions.middleware.SessionMiddleware',
         'django.middleware.common.CommonMiddleware',
-        # 'django.middleware.csrf.CsrfViewMiddleware',
+        'django.middleware.csrf.CsrfViewMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
-        # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+        'django.middleware.clickjacking.XFrameOptionsMiddleware',
     ]
 
     ROOT_URLCONF = 'blango.urls'
@@ -167,7 +173,8 @@ class Dev(Configuration):
     # Static files (CSS, JavaScript, Images)
     # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-    STATIC_URL = '/static/'
+    STATIC_URL = '/static/' 
+    INTERNAL_IPS = ["*"] 
 
     # Default primary key field type
     # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
